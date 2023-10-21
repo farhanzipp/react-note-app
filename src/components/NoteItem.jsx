@@ -1,7 +1,17 @@
 import React from 'react'
 import { showFormattedDate } from '../utils/data'
+import Action from './Action'
+import { handleClickConfirm } from "./Alert"
 
 const NoteItem = ({id, title, body, createdAt, archived, action}) => {
+  const onDeleteNote = (item) => {
+    handleClickConfirm(item, action, "delete", "Are You Sure?", "Confirm Delete Note?", "Yes");
+  };
+  const onArchiveNote = (item) => {
+    !archived 
+    ? handleClickConfirm(item, action, "archive", "Are You Sure?", "Confirm Archive Note?", "Yes")
+    : handleClickConfirm(item, action, "unarchive", "Are You Sure?", "Unarchive Note?", "Yes");
+  };
 
   return (
     <div className='note-item'>
@@ -14,7 +24,13 @@ const NoteItem = ({id, title, body, createdAt, archived, action}) => {
         <p className="note-item__body">{body}</p>
       </div>
 
-      
+      <Action
+        onDelete={onDeleteNote}
+        onArchive={onArchiveNote}
+        id={id}
+        archived={archived}
+      />
+
     </div>
   )
 }
