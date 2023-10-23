@@ -7,7 +7,7 @@ const NoteList = ({ notes, label, setNotes }) => {
         <h2>{label}</h2>
         <div className="notes-list">
             {notes.length === 0 ? (
-            <p className="notes-list__empty-message">Nothing Here</p>
+            <p className="notes-list__empty-message">Nothing to Show</p>
             ) : (
             notes.map((note) => (
                 <NoteItem action={setNotes} key={note.id} {...note} />

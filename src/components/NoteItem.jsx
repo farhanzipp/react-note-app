@@ -5,12 +5,12 @@ import { handleClickConfirm } from "./Alert"
 
 const NoteItem = ({id, title, body, createdAt, archived, action}) => {
   const onDeleteNote = (item) => {
-    handleClickConfirm(item, action, "delete", "Are You Sure?", "Confirm Delete Note?", "Yes");
+    handleClickConfirm(item, action, "delete", "Are You Sure to Delete Note?");
   };
   const onArchiveNote = (item) => {
     !archived 
-    ? handleClickConfirm(item, action, "archive", "Are You Sure?", "Confirm Archive Note?", "Yes")
-    : handleClickConfirm(item, action, "unarchive", "Are You Sure?", "Unarchive Note?", "Yes");
+    ? handleClickConfirm(item, action, "archive", "Archive Note?")
+    : handleClickConfirm(item, action, "unarchive", "Unarchive Note?");
   };
 
   return (
@@ -30,7 +30,6 @@ const NoteItem = ({id, title, body, createdAt, archived, action}) => {
         id={id}
         archived={archived}
       />
-
     </div>
   )
 }
