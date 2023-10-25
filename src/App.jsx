@@ -6,14 +6,14 @@ import { getInitialData } from './utils/data';
 
 const App = () => {
   const [query, setQuery] = useState("");
-  const [searchNotes, setSearchNotes] = useState([]);
+  const [searchedNotes, setSearchedNotes] = useState([]);
   const [notes, setNotes] = useState(getInitialData());
 
-  const notesAll = (searchNotes || notes).filter((note) => !note.archived);
-  const notesArchive = (searchNotes || notes).filter((note) => note.archived);
+  const notesAll = (searchedNotes || notes).filter((note) => !note.archived);
+  const notesArchived = (searchedNotes || notes).filter((note) => note.archived);
 
   useEffect(() => {
-    setSearchNotes(
+    setSearchedNotes(
       notes.filter((note) =>
         note.title.toLowerCase().includes(query.toLowerCase())
       )
@@ -22,10 +22,10 @@ const App = () => {
 
   return (
     <>
-        <Header />
+        <Header search={query} setQuery={setQuery}/>
         <Body
           notesAll={notesAll}
-          notesArchive={notesArchive}
+          notesArchived={notesArchived}
           setNotes={setNotes}
         />
     </>

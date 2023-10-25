@@ -1,12 +1,14 @@
 import React from 'react'
 
-const Action = ({ onDelete, onArchive, id, archived }) => {
+const ActionButtons = ({ id, onDelete, onArchive, archived }) => {
+  
+
   return (
     <div className="note-item__action">
       <button
         id={id}
         onClick={() => onDelete(id)}
-        aria-label="Delete "
+        aria-label="Delete"
         className="note-item__delete-button"
       >
         Delete
@@ -14,13 +16,13 @@ const Action = ({ onDelete, onArchive, id, archived }) => {
       <button
         id={id}
         onClick={() => onArchive(id)}
-        aria-label="Archive "
+        aria-label="Archive"
         className="note-item__archive-button"
       >
-        {archived ? "Unarchive" : "Archive"}
+        {archived ? "unarchive" : "archive"}
       </button>
     </div>
   )
 }
 
-export default Action
+export default ActionButtons

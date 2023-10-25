@@ -1,33 +1,49 @@
 import React from 'react'
 import { showFormattedDate } from '../utils/data'
-import Action from './Action'
-import { handleClickConfirm } from "./Alert"
+import ActionButtons from './ActionButtons'
 
 const NoteItem = ({id, title, body, createdAt, archived, action}) => {
+  const handleClick = ( item, action, type, text) => {
+    const confirmation = confirm(`${text}`);
+  
+    if (confirmation) {
+      if (type === "delete") {
+        action((notes) => notes.filter((note) => note.id !== item));
+      } else if (type === "archive" || type === "unarchive") {
+        action((notes) =>
+          notes.map((note) => {
+            if (note.id === item) {
+              return { ...note, archived: !note.archived };
+            }
+            return note;
+          })
+        );
+      }
+    }
+  }
+
   const onDeleteNote = (item) => {
-    handleClickConfirm(item, action, "delete", "Are You Sure to Delete Note?");
+    handleClick(item, action, "delete", "Are You Sure to Delete Note?");
   };
+
   const onArchiveNote = (item) => {
     !archived 
-    ? handleClickConfirm(item, action, "archive", "Archive Note?")
-    : handleClickConfirm(item, action, "unarchive", "Unarchive Note?");
+    ? handleClick(item, action, "archive", "Archive Note?")
+    : handleClick(item, action, "unarchive", "Unarchive Note?");
   };
 
   return (
     <div className='note-item'>
-      <div className='note-item__content'
-          archived= {archived}
-          action= {action}
-      >
+      <div className='note-item__content' archived= {archived} action= {action}>
         <h3 className="note-item__title">{title}</h3>
         <p className="note-item__date">{showFormattedDate(createdAt)}</p>
         <p className="note-item__body">{body}</p>
       </div>
 
-      <Action
+      <ActionButtons
+        id={id}
         onDelete={onDeleteNote}
         onArchive={onArchiveNote}
-        id={id}
         archived={archived}
       />
     </div>
